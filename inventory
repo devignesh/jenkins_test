@@ -1,0 +1,29 @@
+[webservers]
+127.0.0.1
+
+[host]
+183.82.101.204
+
+# [vyos_spines]
+# spine01 ansible_host=10.16.10.13
+# spine02 ansible_host=10.16.10.14
+
+# [vyos:children]
+# vyos_leafs
+# vyos_spines
+
+# [vyos:vars]
+# ansible_connection=network_cli
+# ansible_network_os=vyos
+# ansible_user=my_vyos_user
+
+# [network:children]
+# vyos
+
+# [servers]
+# server01 ansible_host=10.16.10.15
+# server02 ansible_host=10.16.10.16
+
+# [datacenter:children]
+# vyos
+# servers
