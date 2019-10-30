@@ -1,0 +1,28 @@
+- hosts: 183.82.101.204
+  connection: local   
+  vars:
+    http_port: 25696
+  tasks:
+    - name: bit bucket log
+      git:
+        repo=git@bitbucket.org:devignesh/ansible_test.git 
+        dest=/home/cognier/projects/ansible_test/logs
+        update=yes
+        accept_hostkey=yes
+      register: gitresult
+    - name: get commit of parent repository                           
+      command: git log --oneline 
+      register: parent_commit 
+    - name: git pull
+      git:
+        repo=git@bitbucket.org:devignesh/ansible_test.git 
+        dest=/home/cognier/projects/ansible_test/test
+        update=yes
+        version=master
+    - name: ipify
+      ipify_facts:
+
+    - debug: msg="SHA-1 gitt commit msg {{ gitresult.after }}"
+    - debug: msg="git commit messages are {{parent_commit.stdout}}"
+    - debug: var=ansible_all_ipv4_addresses
+    - debug: var=hostvars[inventory_hostname]['ipify_public_ip']
